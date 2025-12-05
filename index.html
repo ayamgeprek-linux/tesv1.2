@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>✨ Stress Check - Tes Stres Anak Gen Z</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* RESET & VARIABLES */
+        :root {
+            /* COLOR PALETTE GEN-Z */
+            --neon-pink: #ff6ec7;
+            --neon-blue: #00d9ff;
+            --neon-purple: #9d4edd;
+            --neon-green: #00ff9d;
+            --dark-bg: #0a0a0f;
+            --card-bg: rgba(20, 20, 30, 0.9);
+            --glass: rgba(255, 255, 255, 0.05);
+            --text-primary: #f0f0f0;
+            --text-secondary: #b0b0c0;
+            --accent-gradient: linear-gradient(135deg, var(--neon-pink), var(--neon-purple), var(--neon-blue));
+            --success-gradient: linear-gradient(135deg, var(--neon-green), #00ffcc);
+            --warning-gradient: linear-gradient(135deg, #ffaa00, #ff5500);
+            --danger-gradient: linear-gradient(135deg, #ff3366, #ff0066);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(255, 110, 199, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 80% 20%, rgba(0, 217, 255, 0.1) 0%, transparent 40%);
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+        }
+
+        /* ANIMATIONS */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes neonGlow {
+            0%, 100% { box-shadow: 0 0 5px var(--neon-blue); }
+            50% { box-shadow: 0 0 15px var(--neon-blue); }
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink {
+            from, to { border-color: transparent }
+            50% { border-color: var(--neon-blue) }
+        }
+
+        /* LOADING SCREEN */
+        #loadingScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-bg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+            padding: 20px;
+        }
+
+        .loading-logo {
+            font-size: 3rem;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .loading-bar {
+            width: 80%;
+            max-width: 300px;
+            height: 4px;
+            background: var(--glass);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .loading-progress {
+            height: 100%;
+            width: 0%;
+            background: var(--accent-gradient);
+            animation: gradientShift 2s ease infinite;
+            transition: width 0.3s ease;
+        }
+
+        /* MAIN CONTAINER */
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 10px;
+            animation: slideIn 0.8s ease;
+        }
+
+        /* HEADER */
+        header {
+            text-align: center;
+            padding: 20px 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 8rem;
+            opacity: 0.03;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            z-index: -1;
+        }
+
+        .main-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            max-width: 100%;
+            margin: 0 auto 20px;
+            line-height: 1.4;
+            padding: 0 10px;
+        }
+
+        /* STEP INDICATOR */
+        .step-tracker {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            flex: 1;
+            min-width: 70px;
+        }
+
+        .step-circle {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            background: var(--glass);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .step.active .step-circle {
+            background: var(--accent-gradient);
+            border-color: var(--neon-pink);
+            animation: pulse 2s infinite;
+        }
+
+        .step.completed .step-circle {
+            background: var(--success-gradient);
+        }
+
+        .step-line {
+            flex: 1;
+            height: 2px;
+            background: var(--glass);
+            max-width: 30px;
+        }
+
+        /* CARDS */
+        .screen {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 15px auto;
+            max-width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            animation: slideIn 0.5s ease;
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        /* INTRO SCREEN */
+        .emoji-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .emoji-item {
+            text-align: center;
+            padding: 15px 10px;
+            background: var(--glass);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .emoji-item:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .emoji {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+
+        /* BUTTONS */
+        .btn {
+            padding: 14px 24px;
+            border: none;
+            border-radius: 25px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            margin: 5px 0;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: var(--accent-gradient);
+            color: white;
+            box-shadow: 0 4px 15px rgba(157, 78, 221, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(157, 78, 221, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--neon-blue);
+            color: var(--neon-blue);
+        }
+
+        .btn-outline:hover {
+            background: rgba(0, 217, 255, 0.1);
+        }
+
+        .btn-xl {
+            padding: 16px 30px;
+            font-size: 1rem;
+        }
+
+        /* QUESTION SCREEN */
+        .question-container {
+            position: relative;
+        }
+
+        .question-header {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .question-number {
+            font-size: 0.8rem;
+            color: var(--neon-blue);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 360px) {
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .option-card {
+            background: var(--glass);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 15px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .option-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .option-card.selected {
+            background: rgba(157, 78, 221, 0.2);
+            border-color: var(--neon-purple);
+            animation: neonGlow 2s infinite;
+        }
+
+        .option-emoji {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+        }
+
+        .option-text {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 5px;
+            line-height: 1.2;
+        }
+
+        .nav-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-buttons .btn {
+            width: 100%;
+        }
+
+        /* RESULT SCREEN */
+        .result-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .result-emoji {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .score-display {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 20px auto;
+        }
+
+        .score-circle-bg {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(var(--neon-blue) 0% 65%, var(--glass) 65% 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .score-circle-inner {
+            width: 70%;
+            height: 70%;
+            background: var(--card-bg);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .score-number {
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+
+        .level-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 1rem;
+            margin: 15px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            max-width: 90%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .level-low { background: var(--success-gradient); }
+        .level-medium { background: var(--warning-gradient); }
+        .level-high { background: var(--danger-gradient); }
+
+        .recommendations-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .rec-card {
+            background: var(--glass);
+            border-radius: 12px;
+            padding: 15px;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .rec-card:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .rec-icon {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--neon-green);
+        }
+
+        /* CHART */
+        .chart-container {
+            background: var(--glass);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .chart-bar {
+            height: 20px;
+            background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue));
+            border-radius: 10px;
+            margin: 8px 0;
+            position: relative;
+            overflow: hidden;
+            min-width: 20px;
+        }
+
+        .chart-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.3) 50%, 
+                transparent 100%);
+            animation: shimmer 2s infinite;
+        }
+
+        /* SHARE BUTTONS */
+        .share-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .share-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--glass);
+            color: white;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .share-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .wa { background: #25D366; }
+        .ig { background: #E4405F; }
+        .twitter { background: #1DA1F2; }
+        .tiktok { background: #000000; }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 20px 15px;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 30px;
+            line-height: 1.4;
+        }
+
+        /* DARK MODE TOGGLE */
+        .theme-toggle {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--glass);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 100;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(30deg);
+        }
+
+        /* CUSTOM SCROLLBAR */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-gradient);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+        }
+
+        /* PARTICLE BACKGROUND */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: var(--neon-blue);
+            border-radius: 50%;
+            opacity: 0.2;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        /* PROGRESS BAR */
+        .progress-container {
+            width: 100%;
+            height: 6px;
+            background: var(--glass);
+            border-radius: 3px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: var(--accent-gradient);
+            border-radius: 3px;
+            transition: width 0.5s ease;
+            animation: gradientShift 2s infinite;
+        }
+
+        /* TYPING EFFECT */
+        .typing {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 2px solid var(--neon-blue);
+            animation: typing 4s steps(40, end), blink 0.9s step-end infinite;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            text-align: center;
+            max-width: 90%;
+        }
+
+        /* UTILITY CLASSES */
+        .hidden {
+            display: none !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-10 {
+            margin-top: 10px;
+        }
+
+        .mb-10 {
+            margin-bottom: 10px;
+        }
+
+        /* SAFE AREA FOR NOTCHED PHONES */
+        @supports (padding: max(0px)) {
+            body, header, footer {
+                padding-left: max(10px, env(safe-area-inset-left));
+                padding-right: max(10px, env(safe-area-inset-right));
+            }
+        }
+
+        /* ORIENTATION SPECIFIC */
+        @media (orientation: landscape) and (max-height: 600px) {
+            .screen {
+                padding: 15px;
+                margin: 10px auto;
+            }
+            
+            .question-text {
+                font-size: 1rem;
+                margin-bottom: 15px;
+            }
+            
+            .options-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
+            }
+            
+            .option-card {
+                padding: 10px 5px;
+                min-height: 80px;
+            }
+            
+            .result-emoji {
+                font-size: 3rem;
+            }
+            
+            .score-display {
+                width: 120px;
+                height: 120px;
+            }
+        }
+
+        /* VERY SMALL PHONES */
+        @media (max-width: 320px) {
+            .main-title {
+                font-size: 1.8rem;
+            }
+            
+            .step-circle {
+                width: 30px;
+                height: 30px;
+                font-size: 0.8rem;
+            }
+            
+            .emoji-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn {
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* LARGER SCREENS */
+        @media (min-width: 768px) {
+            html {
+                font-size: 18px;
+            }
+            
+            .container {
+                max-width: 700px;
+                padding: 20px;
+            }
+            
+            .screen {
+                padding: 30px;
+                margin: 20px auto;
+            }
+            
+            .main-title {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .options-grid {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                gap: 15px;
+            }
+            
+            .nav-buttons {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            
+            .nav-buttons .btn {
+                width: auto;
+                min-width: 120px;
+            }
+            
+            .recommendations-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* PREVENT TEXT SELECTION ON MOBILE */
+        .no-select {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* IMPROVE TOUCH TARGETS */
+        button, .option-card, .emoji-item, .share-btn {
+            min-height: 44px;
+            min-width: 44px;
+        }
+
+        /* FIX FOR IOS SAFARI */
+        input, textarea, button, select, a {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+    </style>
+</head>
+<body class="no-select">
+    <!-- LOADING SCREEN -->
+    <div id="loadingScreen">
+        <div class="loading-logo">
+            <i class="fas fa-brain"></i>
+        </div>
+        <div class="typing">
+            Loading TES STRES CHECK...
+        </div>
+        <div class="loading-bar">
+            <div class="loading-progress" id="loadingProgress"></div>
+        </div>
+        <div style="margin-top: 20px; color: var(--text-secondary); font-size: 0.8rem;">
+            <i class="fas fa-spinner fa-spin"></i> Preparing TES STRES V1...
+        </div>
+    </div>
+
+    <!-- THEME TOGGLE -->
+    <div class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <!-- PARTICLES -->
+    <div class="particles" id="particles"></div>
+
+    <!-- MAIN CONTENT -->
+    <div class="container" id="mainContainer" style="display: none;">
+        <!-- HEADER -->
+        <header>
+            <div class="header-bg">🧠</div>
+            <h1 class="main-title">STRESS CHECK</h1>
+            <p class="subtitle">Cek level stres kamu bareng kita! Cepat, akurat, berkualitas ✨</p>
+            
+            <!-- STEP TRACKER -->
+            <div class="step-tracker">
+                <div class="step completed" id="step1">
+                    <div class="step-circle">1</div>
+                    <div style="font-size: 0.7rem;">Intro</div>
+                </div>
+                <div class="step-line"></div>
+                <div class="step active" id="step2">
+                    <div class="step-circle">2</div>
+                    <div style="font-size: 0.7rem;">Pertanyaan</div>
+                </div>
+                <div class="step-line"></div>
+                <div class="step" id="step3">
+                    <div class="step-circle">3</div>
+                    <div style="font-size: 0.7rem;">Hasil</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- INTRO SCREEN -->
+        <div class="screen active" id="introScreen">
+            <div style="text-align: center;">
+                <div style="font-size: 2.5rem; margin-bottom: 15px;">
+                
+                </div>
+                <h2 style="font-size: 1.5rem; margin-bottom: 15px; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                    YUK CEK STRES KAMU!
+                </h2>
+                <p style="color: var(--text-secondary); margin-bottom: 20px; line-height: 1.4; font-size: 0.9rem;">
+                    Isi 15 pertanyaan singkat buat tau kondisi mental kamu sekarang. 
+                    Ga pake ribet, hasilnya langsung keluar dengan AKURAT!
+                </p>
+                
+                <div class="emoji-grid">
+                    <div class="emoji-item">
+                        <div class="emoji">⚡</div>
+                        <div style="font-size: 0.8rem;">CEPAT</div>
+                    </div>
+                    <div class="emoji-item">
+                        <div class="emoji">🔒</div>
+                        <div style="font-size: 0.8rem;">PRIVASI</div>
+                    </div>
+                    <div class="emoji-item">
+                        <div class="emoji">🎯</div>
+                        <div style="font-size: 0.8rem;">AKURAT</div>
+                    </div>
+                    
+                    <div class="emoji-item">
+                        <div class="emoji">💫</div>
+                        <div style="font-size: 0.8rem;">KEREN</div>
+                    </div>
+                </div>
+                
+                <div style="margin: 25px 0;">
+                    <button class="btn btn-primary btn-xl" onclick="startTest()">
+                        <i class="fas fa-play"></i> GASKEUN MULAI!
+                    </button>
+                </div>
+                
+                <div style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4;">
+                    <i class="fas fa-clock"></i> ≈ 3-5 menit • 
+                    <i class="fas fa-user-shield"></i> Data aman • 
+                    <i class="fas fa-mobile-alt"></i> Responsif
+                </div>
+            </div>
+        </div>
+
+        <!-- QUESTION SCREEN -->
+        <div class="screen" id="questionScreen">
+            <div class="question-container">
+                <div class="question-header">
+                    <div class="question-number" id="questionNum">Pertanyaan 1/15</div>
+                    <div class="progress-container">
+                        <div class="progress-bar" id="questionProgress"></div>
+                    </div>
+                </div>
+                
+                <h2 class="question-text" id="questionText"></h2>
+                
+                <div class="options-grid" id="optionsGrid">
+                    <!-- Options will be loaded here -->
+                </div>
+                
+                <div class="nav-buttons">
+                    <button class="btn btn-outline" onclick="prevQuestion()" id="prevBtn">
+                        <i class="fas fa-arrow-left"></i> Sebelumnya
+                    </button>
+                    <button class="btn btn-primary" onclick="nextQuestion()" id="nextBtn">
+                        Selanjutnya <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <button class="btn btn-primary" onclick="showResults()" id="submitBtn" style="display: none;">
+                        <i class="fas fa-chart-bar"></i> LIHAT HASIL
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- RESULT SCREEN -->
+        <div class="screen" id="resultScreen">
+            <div class="result-header">
+                <div class="result-emoji" id="resultEmoji">🎉</div>
+                <h2 style="font-size: 1.8rem; margin-bottom: 8px;" id="resultTitle">HASIL TES KAMU!</h2>
+                <p class="subtitle" id="resultSubtitle">Analisis stres kamu sudah siap</p>
+            </div>
+            
+            <div style="text-align: center;">
+                <div class="score-display">
+                    <div class="score-circle-bg" id="scoreCircle">
+                        <div class="score-circle-inner">
+                            <div class="score-number" id="scoreNumber">0</div>
+                            <div style="color: var(--text-secondary); font-size: 0.8rem;">SKOR</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="level-badge" id="levelBadge">STRESS RENDAH</div>
+                
+                <div class="chart-container">
+                    <h3 style="margin-bottom: 15px; font-size: 1.1rem;">RINCIAN STRESS</h3>
+                    <div id="stressChart">
+                        <!-- Chart bars will be added here -->
+                    </div>
+                </div>
+                
+                <div class="recommendations-grid" id="recommendationsGrid">
+                    <!-- Recommendations will be added here -->
+                </div>
+                
+                <!-- SHARE BUTTONS -->
+               
+                <div style="margin-top: 25px; display: flex; flex-direction: column; gap: 10px;">
+                    <button class="btn btn-outline" onclick="restartTest()">
+                        <i class="fas fa-redo"></i> TES LAGI
+                    </button>
+                    <button class="btn btn-primary" onclick="downloadResult()">
+                        <i class="fas fa-download"></i> UNDUH HASIL
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2025 Stress Check • Made with DORET.ID</p>
+        <p style="margin-top: 8px; font-size: 0.7rem; opacity: 0.7;">
+            Hasil ini bersifat informatif. Untuk diagnosis profesional, konsultasikan dengan ahli.
+        </p>
+    </footer>
+
+    <script>
+        // ====================
+        // VARIABLES & DATA
+        // ====================
+        const questions = [
+            { id: 1, text: "Seberapa sering kamu merasa pusing sama tugas atau deadline?", category: "pekerjaan" },
+            { id: 2, text: "Gimana kualitas tidur kamu akhir-akhir ini?", category: "kesehatan" },
+            { id: 3, text: "Seberapa sering kamu merasa cemas tanpa alasan jelas?", category: "emosional" },
+            { id: 4, text: "Kamu sering ngerasa capek terus-terusan?", category: "fisik" },
+            { id: 5, text: "Gampang banget kesel atau marah ga jelas?", category: "emosional" },
+            { id: 6, text: "Seberapa sering kamu ngerasa ga punya waktu buat diri sendiri?", category: "keseimbangan" },
+            { id: 7, text: "Kamu sering menghindari ngumpul atau sosialisasi?", category: "sosial" },
+            { id: 8, text: "Seberapa sering kamu mikirin masa depan sampe bikin deg-degan?", category: "masa_depan" },
+            { id: 9, text: "Kamu sering ngerasa insecure atau bandingin diri sama orang lain?", category: "percaya_diri" },
+            { id: 10, text: "Seberapa sering kamu pakai HP berlebihan buat lari dari realita?", category: "kebiasaan" },
+            { id: 11, text: "Kamu sering sakit kepala atau badan pegal-pegal?", category: "fisik" },
+            { id: 12, text: "Seberapa sering kamu ngerasa ga termotivasi ngapa-ngapain?", category: "motivasi" },
+            { id: 13, text: "Kamu sering overthinking sampe gabisa tidur?", category: "pikiran" },
+            { id: 14, text: "Seberapa sering kamu ngerasa sendirian walau dikelilingi orang?", category: "sosial" },
+            { id: 15, text: "Kamu sering ngerasa semua hal jadi beban banget?", category: "keseluruhan" }
+        ];
+
+        const answerOptions = [
+            { value: 1, emoji: "😎", label: "Ga Pernah", desc: "Ga pernah ngerasa" },
+            { value: 2, emoji: "🙂", label: "Jarang", desc: "Jarang banget" },
+            { value: 3, emoji: "😐", label: "Kadang", desc: "Kadang-kadang" },
+            { value: 4, emoji: "😟", label: "Sering", desc: "Sering banget" },
+            { value: 5, emoji: "😫", label: "Terus", desc: "Terus-terusan" }
+        ];
+
+        let currentQuestion = 0;
+        let userAnswers = new Array(questions.length).fill(0);
+        const answerEmojis = ["", "😎", "🙂", "😐", "😟", "😫"];
+
+        // ====================
+        // INITIALIZATION
+        // ====================
+        window.onload = function() {
+            // Set viewport height for mobile
+            setVH();
+            window.addEventListener('resize', setVH);
+            window.addEventListener('orientationchange', setVH);
+            
+            simulateLoading();
+            createParticles();
+            
+            // Set initial progress
+            updateProgressBar();
+            
+            // Prevent zoom on double tap
+            document.addEventListener('touchstart', function(event) {
+                if (event.touches.length > 1) {
+                    event.preventDefault();
+                }
+            }, { passive: false });
+            
+            let lastTouchEnd = 0;
+            document.addEventListener('touchend', function(event) {
+                const now = (new Date()).getTime();
+                if (now - lastTouchEnd <= 300) {
+                    event.preventDefault();
+                }
+                lastTouchEnd = now;
+            }, false);
+        };
+
+        function setVH() {
+            let vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+
+        function simulateLoading() {
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 15;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    
+                    // Hide loading screen
+                    setTimeout(() => {
+                        document.getElementById('loadingScreen').style.opacity = '0';
+                        setTimeout(() => {
+                            document.getElementById('loadingScreen').style.display = 'none';
+                            document.getElementById('mainContainer').style.display = 'block';
+                        }, 500);
+                    }, 300);
+                }
+                document.getElementById('loadingProgress').style.width = `${progress}%`;
+            }, 100);
+        }
+
+        function createParticles() {
+            const particles = document.getElementById('particles');
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.width = `${Math.random() * 8 + 3}px`;
+                particle.style.height = particle.style.width;
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                particle.style.background = i % 3 === 0 ? 'var(--neon-pink)' : 
+                                          i % 3 === 1 ? 'var(--neon-blue)' : 
+                                                       'var(--neon-green)';
+                particles.appendChild(particle);
+            }
+        }
+
+        // ====================
+        // TEST FUNCTIONS
+        // ====================
+        function startTest() {
+            showScreen('questionScreen');
+            updateStepIndicator(2);
+            loadQuestion(currentQuestion);
+        }
+
+        function loadQuestion(index) {
+            const question = questions[index];
+            
+            // Update UI
+            document.getElementById('questionNum').textContent = `Pertanyaan ${index + 1}/${questions.length}`;
+            document.getElementById('questionText').textContent = question.text;
+            updateProgressBar();
+            
+            // Load options
+            const optionsGrid = document.getElementById('optionsGrid');
+            optionsGrid.innerHTML = answerOptions.map((opt, i) => `
+                <div class="option-card ${userAnswers[index] === opt.value ? 'selected' : ''}" 
+                     onclick="selectAnswer(${index}, ${opt.value})">
+                    <div class="option-emoji">${opt.emoji}</div>
+                    <div style="font-weight: 600; font-size: 0.9rem; margin-bottom: 5px;">${opt.label}</div>
+                    <div class="option-text">${opt.desc}</div>
+                </div>
+            `).join('');
+            
+            // Update navigation buttons
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            if (index === 0) {
+                prevBtn.style.display = 'none';
+                nextBtn.style.display = 'flex';
+                submitBtn.style.display = 'none';
+            } else if (index === questions.length - 1) {
+                prevBtn.style.display = 'flex';
+                nextBtn.style.display = 'none';
+                submitBtn.style.display = 'flex';
+            } else {
+                prevBtn.style.display = 'flex';
+                nextBtn.style.display = 'flex';
+                submitBtn.style.display = 'none';
+            }
+        }
+
+        function selectAnswer(qIndex, value) {
+            userAnswers[qIndex] = value;
+            loadQuestion(qIndex);
+            
+            // Add haptic feedback on mobile
+            if ('vibrate' in navigator) {
+                navigator.vibrate(50);
+            }
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                loadQuestion(currentQuestion);
+                // Add slide animation
+                document.getElementById('questionText').style.animation = 'slideIn 0.3s ease';
+                setTimeout(() => {
+                    document.getElementById('questionText').style.animation = '';
+                }, 300);
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion(currentQuestion);
+            }
+        }
+
+        function updateProgressBar() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('questionProgress').style.width = `${progress}%`;
+        }
+
+        // ====================
+        // RESULT FUNCTIONS
+        // ====================
+        function showResults() {
+            // Show loading animation
+            const originalText = document.getElementById('submitBtn').innerHTML;
+            document.getElementById('submitBtn').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
+            
+            // Add slight delay for better UX
+            setTimeout(() => {
+                calculateResults();
+                showScreen('resultScreen');
+                updateStepIndicator(3);
+                
+                // Scroll to top on mobile
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // Restore button text
+                document.getElementById('submitBtn').innerHTML = originalText;
+            }, 800);
+        }
+
+        function calculateResults() {
+            // Calculate total score
+            const totalScore = userAnswers.reduce((sum, answer) => sum + answer, 0);
+            const maxScore = questions.length * 5;
+            const percentage = Math.round((totalScore / maxScore) * 100);
+            
+            // Determine stress level
+            let level, levelClass, emoji, color, recommendations, resultTitle, resultSubtitle;
+            
+            if (percentage <= 30) {
+                level = "STRESS RENDAH";
+                levelClass = "level-low";
+                emoji = "😎";
+                color = "var(--neon-green)";
+                resultTitle = "KAMU HEBAT! 🎉";
+                resultSubtitle = "Stress level kamu masih aman";
+                recommendations = [
+                    { icon: "💪", title: "Tetap Semangat!", text: "Pertahankan energi positifmu!" },
+                    { icon: "🌟", title: "Sebar Positif", text: "Bagikan energi baik ke sekitar!" },
+                    { icon: "⚖️", title: "Jaga Balance", text: "Terus jaga keseimbangan hidup" },
+                    { icon: "🧘", title: "Tetap Mindful", text: "Coba aplikasi meditasi rutin" }
+                ];
+            } else if (percentage <= 60) {
+                level = "STRESS SEDANG";
+                levelClass = "level-medium";
+                emoji = "😐";
+                color = "var(--neon-blue)";
+                resultTitle = "PERLU PERHATIAN NIH! 🤔";
+                resultSubtitle = "Stress level mulai naik";
+                recommendations = [
+                    { icon: "🧘", title: "Waktu Santai", text: "Meditasi 10 menit/hari" },
+                    { icon: "📵", title: "Digital Detox", text: "Kurangi screen time sebelum tidur" },
+                    { icon: "🎵", title: "Terapi Musik", text: "Bikin playlist santai" },
+                    { icon: "👥", title: "Social Check", text: "Hangout dengan orang positif" }
+                ];
+            } else {
+                level = "STRESS TINGGI";
+                levelClass = "level-high";
+                emoji = "😫";
+                color = "var(--neon-pink)";
+                resultTitle = "AYO PRIORITASKAN DIRI! 🚨";
+                resultSubtitle = "Stress level tinggi, butuh tindakan";
+                recommendations = [
+                    { icon: "🆘", title: "Minta Bantuan", text: "Bicaralah dengan orang terpercaya" },
+                    { icon: "📞", title: "Hotline", text: "1198 (Kemenkes) siap bantu" },
+                    { icon: "👨‍⚕️", title: "Konsultasi", text: "Pertimbangkan bantuan profesional" },
+                    { icon: "🌱", title: "Step by Step", text: "Fokus satu hal dalam satu waktu" }
+                ];
+            }
+            
+            // Update UI
+            document.getElementById('resultEmoji').textContent = emoji;
+            document.getElementById('scoreNumber').textContent = totalScore;
+            document.getElementById('levelBadge').textContent = level;
+            document.getElementById('levelBadge').className = `level-badge ${levelClass}`;
+            document.getElementById('resultTitle').textContent = resultTitle;
+            document.getElementById('resultSubtitle').textContent = resultSubtitle;
+            
+            // Update score circle gradient
+            document.getElementById('scoreCircle').style.background = 
+                `conic-gradient(${color} 0% ${percentage}%, var(--glass) ${percentage}% 100%)`;
+            
+            // Create chart
+            createStressChart();
+            
+            // Load recommendations
+            const recGrid = document.getElementById('recommendationsGrid');
+            recGrid.innerHTML = recommendations.map(rec => `
+                <div class="rec-card">
+                    <div class="rec-icon">${rec.icon}</div>
+                    <h3 style="margin-bottom: 8px; font-size: 1rem;">${rec.title}</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.8rem; line-height: 1.3;">${rec.text}</p>
+                </div>
+            `).join('');
+        }
+
+        function createStressChart() {
+            const categories = {
+                'pekerjaan': 'Pekerjaan',
+                'kesehatan': 'Kesehatan',
+                'emosional': 'Emosional',
+                'fisik': 'Fisik',
+                'sosial': 'Sosial',
+                'keseluruhan': 'Keseluruhan'
+            };
+            
+            const chart = document.getElementById('stressChart');
+            chart.innerHTML = '';
+            
+            // Calculate average per category
+            const categoryScores = {};
+            questions.forEach((q, i) => {
+                if (!categoryScores[q.category]) {
+                    categoryScores[q.category] = { sum: 0, count: 0 };
+                }
+                categoryScores[q.category].sum += userAnswers[i];
+                categoryScores[q.category].count++;
+            });
+            
+            // Create bars
+            Object.entries(categories).forEach(([key, label]) => {
+                if (categoryScores[key]) {
+                    const avg = categoryScores[key].sum / categoryScores[key].count;
+                    const width = Math.max(10, (avg / 5) * 100);
+                    
+                    const bar = document.createElement('div');
+                    bar.className = 'chart-bar';
+                    bar.style.width = `${width}%`;
+                    
+                    const container = document.createElement('div');
+                    container.style.margin = '10px 0';
+                    container.innerHTML = `
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 0.8rem;">
+                            <span>${label}</span>
+                            <span>${avg.toFixed(1)}/5</span>
+                        </div>
+                    `;
+                    container.appendChild(bar);
+                    chart.appendChild(container);
+                }
+            });
+        }
+
+        // ====================
+        // UTILITY FUNCTIONS
+        // ====================
+        function showScreen(screenId) {
+            // Hide all screens
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            
+            // Show selected screen
+            document.getElementById(screenId).classList.add('active');
+            
+            // Add transition effect
+            document.getElementById(screenId).style.animation = 'slideIn 0.5s ease';
+            
+            // Scroll to top on mobile
+            setTimeout(() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 100);
+        }
+
+        function updateStepIndicator(step) {
+            // Reset all steps
+            document.querySelectorAll('.step').forEach(s => {
+                s.classList.remove('active', 'completed');
+            });
+            
+            // Update steps
+            for (let i = 1; i <= step; i++) {
+                document.getElementById(`step${i}`).classList.add('completed');
+            }
+            
+            // Set active step
+            document.getElementById(`step${step}`).classList.add('active');
+        }
+
+        function restartTest() {
+            currentQuestion = 0;
+            userAnswers = new Array(questions.length).fill(0);
+            
+            showScreen('introScreen');
+            updateStepIndicator(1);
+            updateProgressBar();
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function shareResult(platform) {
+            const totalScore = userAnswers.reduce((sum, answer) => sum + answer, 0);
+            const maxScore = questions.length * 5;
+            const percentage = Math.round((totalScore / maxScore) * 100);
+            
+            let message = `Saya baru tes stres dan dapat skor ${totalScore}/${maxScore} (${percentage}%)! ✨`;
+            message += ` Cek tingkat stres kamu juga di Stress Check!`;
+            
+            let url = '';
+            switch(platform) {
+                case 'whatsapp':
+                    url = `https://wa.me/?text=${encodeURIComponent(message)}`;
+                    break;
+                case 'instagram':
+                    alert('Screenshot hasilnya dan share ke story kamu! 📸');
+                    return;
+                case 'twitter':
+                    url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}`;
+                    break;
+            }
+            
+            if (url) {
+                window.open(url, '_blank');
+            }
+        }
+
+        function downloadResult() {
+            const totalScore = userAnswers.reduce((sum, answer) => sum + answer, 0);
+            const maxScore = questions.length * 5;
+            const percentage = Math.round((totalScore / maxScore) * 100);
+            
+            let level = "STRESS RENDAH";
+            if (percentage > 60) level = "STRESS TINGGI";
+            else if (percentage > 30) level = "STRESS SEDANG";
+            
+            const resultText = `
+🏆 HASIL TES STRES 🏆
+=====================
+Tanggal: ${new Date().toLocaleDateString('id-ID')}
+Skor: ${totalScore}/${maxScore} (${percentage}%)
+Tingkat Stres: ${level}
+
+✨ REKOMENDASI:
+1. Istirahat yang cukup
+2. Bicara dengan orang terpercaya
+3. Luangkan waktu untuk diri sendiri
+4. Cari bantuan profesional jika perlu
+
+💖 Ingat: Tidak apa-apa untuk tidak baik-baik saja.
+Kesehatan mental kamu penting!
+
+=====================
+Dibuat oleh Stress Check
+#KesehatanMental #SelfCare
+            `;
+            
+            const blob = new Blob([resultText], { type: 'text/plain;charset=utf-8' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `hasil-stres-check-${new Date().toISOString().split('T')[0]}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            // Show notification
+            showNotification('Hasil berhasil diunduh! ✅');
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: var(--accent-gradient);
+                color: white;
+                padding: 12px 20px;
+                border-radius: 25px;
+                font-weight: 600;
+                z-index: 1000;
+                animation: slideIn 0.3s ease;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+                font-size: 0.9rem;
+                max-width: 80%;
+                text-align: center;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideIn 0.3s ease reverse';
+                setTimeout(() => notification.remove(), 300);
+            }, 2000);
+        }
+
+        // ====================
+        // THEME TOGGLE
+        // ====================
+        document.getElementById('themeToggle').addEventListener('click', function() {
+            const icon = this.querySelector('i');
+            if (icon.classList.contains('fa-moon')) {
+                icon.classList.replace('fa-moon', 'fa-sun');
+                document.documentElement.style.setProperty('--dark-bg', '#f0f2f5');
+                document.documentElement.style.setProperty('--card-bg', 'rgba(255, 255, 255, 0.95)');
+                document.documentElement.style.setProperty('--text-primary', '#1a1a2e');
+                document.documentElement.style.setProperty('--text-secondary', '#666');
+                document.documentElement.style.setProperty('--glass', 'rgba(0, 0, 0, 0.05)');
+            } else {
+                icon.classList.replace('fa-sun', 'fa-moon');
+                document.documentElement.style.setProperty('--dark-bg', '#0a0a0f');
+                document.documentElement.style.setProperty('--card-bg', 'rgba(20, 20, 30, 0.9)');
+                document.documentElement.style.setProperty('--text-primary', '#f0f0f0');
+                document.documentElement.style.setProperty('--text-secondary', '#b0b0c0');
+                document.documentElement.style.setProperty('--glass', 'rgba(255, 255, 255, 0.05)');
+            }
+        });
+
+        // ====================
+        // ADDITIONAL EFFECTS
+        // ====================
+        // Add CSS for ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(3);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
